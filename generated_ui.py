@@ -29,6 +29,13 @@ class Ui_Dialog(object):
         self.field.setObjectName("field")
         self.field.setColumnCount(8)
         self.field.setRowCount(8)
+
+        # manually added fixed restriction
+        self.field.horizontalHeader().setMinimumSectionSize(68)
+        self.field.horizontalHeader().setMaximumSectionSize(68)
+        self.field.verticalHeader().setMinimumSectionSize(68)
+        self.field.verticalHeader().setMaximumSectionSize(68)
+
         item = QtWidgets.QTableWidgetItem()
         self.field.setVerticalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()

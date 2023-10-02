@@ -1,17 +1,23 @@
 class Figure:
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, color, image):
         self.x = x  # [0..7]
         self.y = y  # [0..7]
         self.color = color  # 0 - Black, 1 - White
+        self.image = image
+
+        self.background = ""
 
     def move(self, x, y):
         self.x = x
         self.y = y
 
+    def possible_moves(self):
+        pass  # функция-пустышка, функционал реализован в дочерних классах
+
 
 class Pawn(Figure):
-    def __init__(self, x, y, color):
-        super().__init__(x, y, color)
+    def __init__(self, x, y, color, image):
+        super().__init__(x, y, color, image)
         self.first_move = True
 
     def possible_moves(self):
@@ -28,3 +34,6 @@ class Pawn(Figure):
         super().move(x, y)
         if y == 0 or y == 7:
             pass  # TODO: convert to queen
+
+    def __repr__(self):
+        return "P"

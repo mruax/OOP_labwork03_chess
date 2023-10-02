@@ -142,6 +142,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -155,6 +158,9 @@
       <item row="0" column="1">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -170,6 +176,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -183,6 +192,9 @@
       <item row="0" column="3">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -198,6 +210,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -211,6 +226,9 @@
       <item row="0" column="5">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -226,6 +244,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -239,6 +260,9 @@
       <item row="0" column="7">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -254,6 +278,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -267,6 +294,9 @@
       <item row="1" column="1">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -282,6 +312,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -295,6 +328,9 @@
       <item row="1" column="3">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -310,6 +346,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -323,6 +362,9 @@
       <item row="1" column="5">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -338,6 +380,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -351,6 +396,9 @@
       <item row="1" column="7">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -366,6 +414,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -379,6 +430,9 @@
       <item row="2" column="1">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -394,6 +448,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -407,6 +464,9 @@
       <item row="2" column="3">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -422,6 +482,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -435,6 +498,9 @@
       <item row="2" column="5">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -450,6 +516,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -463,6 +532,9 @@
       <item row="2" column="7">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -478,6 +550,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -491,6 +566,9 @@
       <item row="3" column="1">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -506,6 +584,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -519,6 +600,9 @@
       <item row="3" column="3">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -534,6 +618,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -548,6 +635,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -561,6 +651,9 @@
       <item row="3" column="6">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -585,6 +678,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -598,6 +694,9 @@
       <item row="4" column="0">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -613,6 +712,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -626,6 +728,9 @@
       <item row="4" column="2">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -641,6 +746,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -654,6 +762,9 @@
       <item row="4" column="4">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -669,6 +780,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -682,6 +796,9 @@
       <item row="4" column="6">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -697,6 +814,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -710,6 +830,9 @@
       <item row="5" column="0">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -725,6 +848,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -738,6 +864,9 @@
       <item row="5" column="2">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -753,6 +882,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -766,6 +898,9 @@
       <item row="5" column="4">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -781,6 +916,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -794,6 +932,9 @@
       <item row="5" column="6">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -818,6 +959,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -831,6 +975,9 @@
       <item row="6" column="0">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -846,6 +993,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -859,6 +1009,9 @@
       <item row="6" column="2">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -874,6 +1027,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -887,6 +1043,9 @@
       <item row="6" column="4">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -902,6 +1061,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -915,6 +1077,9 @@
       <item row="6" column="6">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -939,6 +1104,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -952,6 +1120,9 @@
       <item row="7" column="0">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -967,6 +1138,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -980,6 +1154,9 @@
       <item row="7" column="2">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -995,6 +1172,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -1008,6 +1188,9 @@
       <item row="7" column="4">
        <property name="text">
         <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
        </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
@@ -1023,6 +1206,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -1037,6 +1223,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
@@ -1048,6 +1237,12 @@
        </property>
       </item>
       <item row="7" column="7">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
        <property name="background">
         <brush brushstyle="SolidPattern">
          <color alpha="255">

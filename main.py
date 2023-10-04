@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 
-from chess import Pawn, Rook, Bishop, Knight, Queen, King, Chip
+from chess import Rook, Bishop, Queen, Chip
 from generated_ui import Ui_Dialog
 
 

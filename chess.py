@@ -15,16 +15,11 @@ class Pawn(Figure):
         super().__init__(x, y, color, image)
         self.first_move = True
 
-    def move(self, x, y):
-        super().move(x, y)
-        if y == 0 or y == 7:
-            pass  # TODO: convert to queen
-
     def __repr__(self):
         return "P"
 
 
-class Rook(Figure):  # maybe add рокировку
+class Rook(Figure):
     def __repr__(self):
         return "R"
 
@@ -42,3 +37,8 @@ class Knight(Figure):
 class Queen(Figure):
     def __repr__(self):
         return "Q"
+
+
+class King(Figure):
+    def __repr__(self):
+        return "+"

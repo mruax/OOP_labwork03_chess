@@ -535,5 +535,5 @@ class Ui_Dialog(object):
         self.field.setSortingEnabled(False)
         self.field.setSortingEnabled(__sortingEnabled)
         self.name_label.setText(_translate("Dialog", "Шахматы"))
-        self.turn_label.setText(_translate("Dialog", "<html><head/><body><p>Ходят</p><p>Черные</p></body></html>"))
+        self.turn_label.setText(_translate("Dialog", "Ходят\n\nБелые"))
         self.turn_button.setText(_translate("Dialog", "Ход"))

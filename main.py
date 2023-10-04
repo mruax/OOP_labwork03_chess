@@ -2,10 +2,10 @@ import sys
 from pathlib import Path
 
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QIcon, QPixmap, QColor, QBrush
+from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from generated_ui import Ui_Dialog
-from chess import Pawn, Rook, Bishop, Knight, Queen
+from chess import Pawn, Rook, Bishop, Knight, Queen, King
 
 
 class MainWindow(QMainWindow):
@@ -39,14 +39,12 @@ class MainWindow(QMainWindow):
             row = item.row()
             col = item.column()
             self.current_tile = [row, col]
-            # print(f"Выбрана ячейка в строке {row + 1}, столбце {col + 1}")
             if self.ui.field.item(row, col).background().color() == QColor(240, 240, 0):  # free cell move
-                # print("Тут возможно будет ход!")
                 pass
             elif self.ui.field.item(row, col).background().color() == QColor(240, 80, 0):  # attack move
                 pass
-                # print("Возможно тут будет труп!")
-            elif field[row][col]:  # show figure possible moves
+            elif field[row][col]:  # show possible moves
+                update_cells(field, self.ui.field)
                 self.current_figure = [row, col]
                 if type(field[row][col]) == Pawn:
                     cells = pawn_moves(row, col)
@@ -58,11 +56,14 @@ class MainWindow(QMainWindow):
                     cells = knight_moves(row, col)
                 if type(field[row][col]) == Queen:
                     cells = queen_moves(row, col)
-                show_possible_items(cells, self.ui.field, field[row][col].color)
+                if type(field[row][col]) == King:
+                    cells = king_moves(row, col)
+                if self.current_turn == field[row][col].color:
+                    show_possible_items(cells, self.ui.field, field[row][col].color)
             else:
                 self.current_figure = []
+                self.current_tile = []
                 update_cells(field, self.ui.field)
-            # print("tile:", self.current_tile, "figure:", self.current_figure)
 
     def next_turn(self):
         if len(self.current_figure) == 2:  # if selected figure
@@ -75,17 +76,17 @@ class MainWindow(QMainWindow):
 
                 if type(field[x][y]) == Pawn:
                     field[x][y].first_move = False
+
+                if self.current_turn == 0:
+                    self.current_turn = 1
+                    self.ui.turn_label.setText("Ходят:\n\nБелые")
+                else:
+                    self.current_turn = 0
+                    self.ui.turn_label.setText("Ходят:\n\nЧерные")
         self.current_figure = []
         self.current_tile = []
         self.ui.field.clearSelection()
         update_cells(field, self.ui.field)
-
-        if self.current_turn == 0:
-            self.current_turn = 1
-            self.ui.turn_label.setText("Ходят:\n\nБелые")
-        else:
-            self.current_turn = 0
-            self.ui.turn_label.setText("Ходят:\n\nЧерные")
 
 
 def pawn_moves(x, y):
@@ -99,7 +100,12 @@ def pawn_moves(x, y):
     figure = field[x][y]
     c = [1, 2]
     res = []
-    if x == 0 or x == 7:  # TODO: если пешка превратится на краю в крутыша
+    if x == 0 or x == 7:
+        color = field[x][y].color
+        if color == 0:
+            field[x][y] = Queen(x, y, color , queen_pixmap)
+        else:
+            field[x][y] = Queen(x, y, color, white_queen_pixmap)
         return []
     if figure.color == 0:  # if black - moving down
         c = [-1, -2]  # coefficients to move up or down
@@ -231,9 +237,32 @@ def knight_moves(x, y):
 
 
 def queen_moves(x, y):
+    """
+    Function returns list of all possible queen moves [[x1, y1], [x2, y2], ...]
+
+    :param x: figure x coordinate
+    :param y: figure y coordinate
+    :return: list
+    """
     res1 = rook_moves(x, y)
     res2 = bishop_moves(x, y)
     return res1 + res2
+
+
+def king_moves(x, y):
+    """
+    Function returns list of all possible king moves [[x1, y1], [x2, y2], ...]
+
+    :param x: figure x coordinate
+    :param y: figure y coordinate
+    :return: list
+    """
+    res = []
+    moves = [[1, 1], [1, 0], [0, 1], [1, -1], [-1, 1], [-1, 0], [0, -1], [-1, -1]]
+    for i in range(8):
+        if 0 <= x + moves[i][0] <= 7 and 0 <= y + moves[i][1] <= 7:
+            res.append([x + moves[i][0], y + moves[i][1]])
+    return res
 
 
 def show_possible_items(cells, table, color):
@@ -293,6 +322,7 @@ def start_positions(table):
     create_figure(7, 2, table, white_bishop_pixmap, default_color(7, 2))
     create_figure(7, 5, table, white_bishop_pixmap, default_color(7, 5))
     create_figure(7, 3, table, white_queen_pixmap, default_color(7, 3))
+    create_figure(7, 4, table, white_king_pixmap, default_color(7, 4))
     # Black figures:
     for i in range(8):
         create_figure(1, i, table, pawn_pixmap, default_color(1, i))
@@ -303,6 +333,7 @@ def start_positions(table):
     create_figure(0, 2, table, bishop_pixmap, default_color(0, 2))
     create_figure(0, 5, table, bishop_pixmap, default_color(0, 5))
     create_figure(0, 3, table, queen_pixmap, default_color(0, 3))
+    create_figure(0, 4, table, king_pixmap, default_color(0, 4))
 
 
 def init_field_matrix(field):
@@ -316,6 +347,7 @@ def init_field_matrix(field):
     field[7][2] = Bishop(7, 2, color=1, image=white_bishop_pixmap)
     field[7][5] = Bishop(7, 5, color=1, image=white_bishop_pixmap)
     field[7][3] = Queen(7, 3, color=1, image=white_queen_pixmap)
+    field[7][4] = King(7, 4, color=1, image=white_king_pixmap)
     # Black figures:
     for x in range(8):
         field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
@@ -326,6 +358,7 @@ def init_field_matrix(field):
     field[0][2] = Bishop(0, 2, color=0, image=bishop_pixmap)
     field[0][5] = Bishop(0, 5, color=0, image=bishop_pixmap)
     field[0][3] = Queen(0, 3, color=0, image=queen_pixmap)
+    field[0][4] = King(0, 4, color=0, image=king_pixmap)
 
 
 if __name__ == '__main__':
@@ -354,12 +387,17 @@ if __name__ == '__main__':
     queen_pixmap = queen_pixmap.scaled(figure_size)
     white_queen_pixmap = QPixmap(str(Path("src/white_queen.png")))
     white_queen_pixmap = white_queen_pixmap.scaled(figure_size)
+    king_pixmap = QPixmap(str(Path("src/king.png")))
+    king_pixmap = king_pixmap.scaled(figure_size)
+    white_king_pixmap = QPixmap(str(Path("src/white_king.png")))
+    white_king_pixmap = white_king_pixmap.scaled(figure_size)
 
     # Matrix with class objects
     field = [[0 for j in range(8)] for i in range(8)]
     init_field_matrix(field)
-    start_positions(window.ui.field)
 
+    # Show figures on board
+    start_positions(window.ui.field)
 
     # DEBUG only
     # for row in field:

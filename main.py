@@ -26,6 +26,56 @@ class MainWindow(QMainWindow):
         self.ui.field.verticalHeader().setMinimumSectionSize(68)
         self.ui.field.verticalHeader().setMaximumSectionSize(68)
 
+        self.ui.field.itemSelectionChanged.connect(self.onItemSelected)
+        self.ui.turn_button.clicked.connect(self.next_turn)
+
+        self.current_tile = []  # [x, y]
+        self.current_figure = []  # [x, y]
+        self.current_turn = 1  # 1 - White, 0 - Black
+
+    def onItemSelected(self):
+        selected_item = self.sender().selectedItems()
+        if selected_item:
+            item = selected_item[0]
+            row = item.row()
+            col = item.column()
+            self.current_tile = [row, col]
+            if self.ui.field.item(row, col).background().color() == QColor(240, 240, 0):  # free cell move
+                pass
+            elif self.ui.field.item(row, col).background().color() == QColor(240, 80, 0):  # attack move
+                pass
+            elif field[row][col]:  # show possible moves
+                self.current_figure = [row, col]
+
+    def next_turn(self):
+        if len(self.current_figure) == 2:  # if selected figure
+            if self.current_figure != self.current_tile:  # and tile not the same
+                x, y = self.current_tile[0], self.current_tile[1]
+                x0, y0 = self.current_figure[0], self.current_figure[1]
+                field[x][y] = field[x0][y0]
+                field[x][y].move(x, y)  # updates coordinates
+                field[x0][y0] = 0
+        self.current_figure = []
+        self.current_tile = []
+        self.ui.field.clearSelection()
+        update_cells(field, self.ui.field)
+        if type(field[x][y]) is Queen:
+            cells = queen_moves(x, y)
+        if type(field[x][y]) is Rook:
+            cells = rook_moves(x, y)
+        if type(field[x][y]) is Bishop:
+            cells = bishop_moves(x, y)
+        show_possible_items(cells, window.ui.field, 0)
+        flag = False
+        for x, y in cells:
+            if x == x2 and y == y2:
+                flag = True
+                break
+        if flag:
+            print("Можно за два хода!")
+        else:
+            print("Неудачно! Попробуйте по другому или за два хода нельзя!")
+
 
 def create_figure(x, y, table, image, color):
     """
@@ -42,6 +92,15 @@ def create_figure(x, y, table, image, color):
     item.setData(Qt.ItemDataRole.DecorationRole, image)
     item.setBackground(color)
     table.setItem(x, y, item)
+
+
+def update_cells(matrix, table):
+    for x, row in enumerate(matrix):
+        for y, item in enumerate(row):
+            if item:
+                create_figure(x, y, table, item.image, default_color(x, y))
+            else:
+                create_figure(x, y, table, QPixmap, default_color(x, y))
 
 
 def default_color(x, y):
@@ -185,14 +244,6 @@ def show_possible_items(cells, table, color):
             create_figure(cell[0], cell[1], table, QPixmap, QColor(240, 240, 0))
 
 
-def start_positions(table):
-    pass
-
-
-def init_field_matrix(field):
-    pass
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
@@ -290,7 +341,35 @@ if __name__ == '__main__':
             else:
                 print("Пересечения нет :(")
         case 3:
-            pass
-
+            chip = Chip(x2, y2, 1, blue_chip_pixmap)
+            create_figure(x2, y2, window.ui.field, blue_chip_pixmap, color2)
+            field[x2][y2] = chip
+            num = int(input("Выберите номер фигуры (1=ферзь, 2=ладья, 3=слон) - "))
+            match num:
+                case 1:
+                    figure = Queen(x1, y1, 0, queen_pixmap)
+                    create_figure(x1, y1, window.ui.field, queen_pixmap, color1)
+                    field[x1][y1] = figure
+                    cells = queen_moves(x1, y1)
+                case 2:
+                    figure = Rook(x1, y1, 0, rook_pixmap)
+                    create_figure(x1, y1, window.ui.field, rook_pixmap, color1)
+                    field[x1][y1] = figure
+                    cells = rook_moves(x1, y1)
+                case 3:
+                    figure = Bishop(x1, y1, 0, bishop_pixmap)
+                    create_figure(x1, y1, window.ui.field, bishop_pixmap, color1)
+                    field[x1][y1] = figure
+                    cells = bishop_moves(x1, y1)
+            show_possible_items(cells, window.ui.field, 0)
+            flag = False
+            for x, y in cells:
+                if x == x2 and y == y2:
+                    flag = True
+                    break
+            if flag:
+                print("Можно за один ход!")
+            else:
+                print("Нажмите на фигуру и сходите в любую доступную клетку!")
     window.show()
     sys.exit(app.exec())

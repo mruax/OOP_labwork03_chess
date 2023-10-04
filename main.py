@@ -28,33 +28,55 @@ class MainWindow(QMainWindow):
         self.ui.field.itemSelectionChanged.connect(self.onItemSelected)
         self.ui.turn_button.clicked.connect(self.next_turn)
 
+        self.current_tile = []  # [x, y]
+        self.current_figure = []  # [x, y]
+
     def onItemSelected(self):
         selected_item = self.sender().selectedItems()
         if selected_item:
             item = selected_item[0]
             row = item.row()
             col = item.column()
+            self.current_tile = [row, col]
             print(f"Выбрана ячейка в строке {row + 1}, столбце {col + 1}")
             if self.ui.field.item(row, col).background().color() == QColor(240, 240, 0):  # free cell move
-                print("Тут возможно будет ход!")
+                # print("Тут возможно будет ход!")
+                pass
             elif self.ui.field.item(row, col).background().color() == QColor(240, 80, 0):  # attack move
-                print("Возможно тут будет труп!")
+                pass
+                # print("Возможно тут будет труп!")
             elif field[row][col]:  # show figure possible moves
+                self.current_figure = [row, col]
                 # cells = field[row][col].possible_moves()
                 cells = pawn_moves(row, col)
-                print("Возможные ходы:", cells)
+                # print("Возможные ходы:", cells)
                 show_possible_items(cells, self.ui.field, field[row][col].color)
             else:
+                self.current_figure = []
                 update_cells(field, self.ui.field)
 
     def next_turn(self):
-        print("Новый ход!")
+        if len(self.current_figure) == 2:  # if selected figure
+            if self.current_figure != self.current_tile:  # and tile not the same
+                x, y = self.current_tile[0], self.current_tile[1]
+                x0, y0 = self.current_figure[0], self.current_figure[1]
+                field[x][y] = field[x0][y0]
+                field[x0][y0] = 0
+
+                if type(field[x][y]) == Pawn:
+                    field[x][y].first_move = False
+        self.current_figure = []
+        self.current_tile = []
+        self.ui.field.clearSelection()
+        update_cells(field, self.ui.field)
 
 
 def pawn_moves(x, y):
     figure = field[x][y]
     c = [1, 2]
     res = []
+    if x == 0 or x == 7:  # TODO: если пешка превратится на краю в крутыша
+        return
     if figure.color == 0:  # if black - moving down
         c = [-1, -2]  # coefficients to move up or down
     if not(field[x - c[0]][y]):  # if next upper cell isn't blocked

@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QBrush
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from generated_ui import Ui_Dialog
-from chess import Pawn, Rook, Bishop, Knight
+from chess import Pawn, Rook, Bishop, Knight, Queen
 
 
 class MainWindow(QMainWindow):
@@ -56,7 +56,8 @@ class MainWindow(QMainWindow):
                     cells = bishop_moves(row, col)
                 if type(field[row][col]) == Knight:
                     cells = knight_moves(row, col)
-                # print("Возможные ходы:", cells)
+                if type(field[row][col]) == Queen:
+                    cells = queen_moves(row, col)
                 show_possible_items(cells, self.ui.field, field[row][col].color)
             else:
                 self.current_figure = []
@@ -229,6 +230,12 @@ def knight_moves(x, y):
     return res
 
 
+def queen_moves(x, y):
+    res1 = rook_moves(x, y)
+    res2 = bishop_moves(x, y)
+    return res1 + res2
+
+
 def show_possible_items(cells, table, color):
     update_cells(field, table)
     for cell in cells:
@@ -285,6 +292,7 @@ def start_positions(table):
     create_figure(7, 6, table, white_knight_pixmap, default_color(7, 6))
     create_figure(7, 2, table, white_bishop_pixmap, default_color(7, 2))
     create_figure(7, 5, table, white_bishop_pixmap, default_color(7, 5))
+    create_figure(7, 3, table, white_queen_pixmap, default_color(7, 3))
     # Black figures:
     for i in range(8):
         create_figure(1, i, table, pawn_pixmap, default_color(1, i))
@@ -294,6 +302,7 @@ def start_positions(table):
     create_figure(0, 6, table, knight_pixmap, default_color(0, 6))
     create_figure(0, 2, table, bishop_pixmap, default_color(0, 2))
     create_figure(0, 5, table, bishop_pixmap, default_color(0, 5))
+    create_figure(0, 3, table, queen_pixmap, default_color(0, 3))
 
 
 def init_field_matrix(field):
@@ -306,6 +315,7 @@ def init_field_matrix(field):
     field[7][6] = Knight(7, 6, color=1, image=white_knight_pixmap)
     field[7][2] = Bishop(7, 2, color=1, image=white_bishop_pixmap)
     field[7][5] = Bishop(7, 5, color=1, image=white_bishop_pixmap)
+    field[7][3] = Queen(7, 3, color=1, image=white_queen_pixmap)
     # Black figures:
     for x in range(8):
         field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
@@ -315,15 +325,17 @@ def init_field_matrix(field):
     field[0][6] = Knight(0, 6, color=0, image=knight_pixmap)
     field[0][2] = Bishop(0, 2, color=0, image=bishop_pixmap)
     field[0][5] = Bishop(0, 5, color=0, image=bishop_pixmap)
+    field[0][3] = Queen(0, 3, color=0, image=queen_pixmap)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
 
+    # Figure pixmaps
     figure_size = QSize(63, 63)
     pawn_pixmap = QPixmap(str(Path("src/pawn.png")))
-    pawn_pixmap = pawn_pixmap.scaled(figure_size)  # , Qt.AspectRatioMode.KeepAspectRatio
+    pawn_pixmap = pawn_pixmap.scaled(figure_size)
     white_pawn_pixmap = QPixmap(str(Path("src/white_pawn.png")))
     white_pawn_pixmap = white_pawn_pixmap.scaled(figure_size)
     rook_pixmap = QPixmap(str(Path("src/rook.png")))
@@ -338,22 +350,16 @@ if __name__ == '__main__':
     knight_pixmap = knight_pixmap.scaled(figure_size)
     white_knight_pixmap = QPixmap(str(Path("src/white_knight.png")))
     white_knight_pixmap = white_knight_pixmap.scaled(figure_size)
+    queen_pixmap = QPixmap(str(Path("src/queen.png")))
+    queen_pixmap = queen_pixmap.scaled(figure_size)
+    white_queen_pixmap = QPixmap(str(Path("src/white_queen.png")))
+    white_queen_pixmap = white_queen_pixmap.scaled(figure_size)
 
+    # Matrix with class objects
     field = [[0 for j in range(8)] for i in range(8)]
     init_field_matrix(field)
     start_positions(window.ui.field)
 
-    # test figures:
-    # field[5][3] = Pawn(3, 5, color=1, image=white_pawn_pixmap)
-    # create_figure(5, 3, window.ui.field, white_pawn_pixmap, default_color(3, 5))
-    # field[4][2] = Pawn(2, 4, color=0, image=pawn_pixmap)
-    # create_figure(4, 2, window.ui.field, pawn_pixmap, default_color(2, 4))
-    # field[4][4] = Pawn(4, 4, color=0, image=pawn_pixmap)
-    # create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
-    # field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
-    # create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
-    # field[4][6] = Bishop(6, 4, color=1, image=white_bishop_pixmap)
-    # create_figure(4, 6, window.ui.field, white_bishop_pixmap, default_color(4, 6))
 
     # DEBUG only
     # for row in field:

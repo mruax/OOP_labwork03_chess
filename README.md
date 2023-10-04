@@ -12,6 +12,12 @@ This project contain two branches:
 Даны натуральные числа k, l, m, n,
 каждое из которых не превосходит восьми.
 
+## Run
+
+Run `python main.py`
+
+or your default IDE run.
+
 ## Task1:
 
 Выяснить, являются ли поля (k, I) и (m, n) полями одного цвета.

@@ -42,3 +42,8 @@ class Queen(Figure):
 class King(Figure):
     def __repr__(self):
         return "+"
+
+
+class Chip(Figure):
+    def __repr__(self):
+        return "C"

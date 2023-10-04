@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 
-from chess import Pawn, Rook, Bishop, Knight, Queen, King
+from chess import Pawn, Rook, Bishop, Knight, Queen, King, Chip
 from generated_ui import Ui_Dialog
 
 
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     king_pixmap = king_pixmap.scaled(figure_size)
     white_king_pixmap = QPixmap(str(Path("src/white_king.png")))
     white_king_pixmap = white_king_pixmap.scaled(figure_size)
-    
+
     red_chip_pixmap = QPixmap(str(Path("src/red_chip.png")))
     red_chip_pixmap = red_chip_pixmap.scaled(figure_size)
     blue_chip_pixmap = QPixmap(str(Path("src/blue_chip.png")))
@@ -106,11 +106,41 @@ if __name__ == '__main__':
 
     # Matrix with class objects
     field = [[0 for j in range(8)] for i in range(8)]
-    init_field_matrix(field)
+    # init_field_matrix(field)
 
     # Show figures on board
-    start_positions(window.ui.field)
+    # start_positions(window.ui.field)
 
+    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    task = int(input("Введите номер задания (1, 2, 3) - "))
+    # k = x1, l = y1, m = x2, n = y2
+    print("Введите k, l, m, n (k и m - числа, l и n - буква):")
+    x1, y1 = int(input("k = ")), alphabet.index(input("l = "))
+    x2, y2 = int(input("m = ")), alphabet.index(input("n = "))
+    match task:
+        case 1:
+            chip1 = Chip(x1 - 1, y1, 0, red_chip_pixmap)
+            chip2 = Chip(x2 - 1, y2, 1, blue_chip_pixmap)
+            color1 = default_color(x1 - 1, y1)
+            color2 = default_color(x2 - 1, y2)
+            create_figure(x1 - 1, y1, window.ui.field, red_chip_pixmap, color1)
+            create_figure(x2 - 1, y2, window.ui.field, blue_chip_pixmap, color2)
+            if color1 == color2:
+                print("Цвет клетки совпадает!")
+            else:
+                print("Цвет клеток разный!")
+        case 2:
+            num = int(input("Выберите номер фигуры (1=ферзь, 2=ладья, 3=слон) - "))
+            match num:
+                case 1:
+                    figure = Queen(x1, y1, 0, queen_pixmap)
+                case 2:
+                    figure = Rook(x1, y1, 0, rook_pixmap)
+                case 3:
+                    figure = Bishop(x1, y1, 0, bishop_pixmap)
+            
+        case 3:
+            pass
 
     window.show()
     sys.exit(app.exec())

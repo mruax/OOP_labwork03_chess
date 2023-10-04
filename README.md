@@ -3,6 +3,17 @@ This is chess game!
 
 This branch contains full chess game!
 
+Run:
+
+`python main.py`
+
+or your default IDE run.
+
+About:
+
+Code checked for PEP8 by flake8.
+
+
 TODO: 
 * castling rook with king
 * turn timer

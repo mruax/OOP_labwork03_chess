@@ -4,8 +4,9 @@ from pathlib import Path
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
-from generated_ui import Ui_Dialog
+
 from chess import Pawn, Rook, Bishop, Knight, Queen, King
+from generated_ui import Ui_Dialog
 
 
 class MainWindow(QMainWindow):
@@ -46,17 +47,17 @@ class MainWindow(QMainWindow):
             elif field[row][col]:  # show possible moves
                 update_cells(field, self.ui.field)
                 self.current_figure = [row, col]
-                if type(field[row][col]) == Pawn:
+                if type(field[row][col]) is Pawn:
                     cells = pawn_moves(row, col)
-                if type(field[row][col]) == Rook:
+                if type(field[row][col]) is Rook:
                     cells = rook_moves(row, col)
-                if type(field[row][col]) == Bishop:
+                if type(field[row][col]) is Bishop:
                     cells = bishop_moves(row, col)
-                if type(field[row][col]) == Knight:
+                if type(field[row][col]) is Knight:
                     cells = knight_moves(row, col)
-                if type(field[row][col]) == Queen:
+                if type(field[row][col]) is Queen:
                     cells = queen_moves(row, col)
-                if type(field[row][col]) == King:
+                if type(field[row][col]) is King:
                     cells = king_moves(row, col)
                 if self.current_turn == field[row][col].color:
                     show_possible_items(cells, self.ui.field, field[row][col].color)
@@ -74,7 +75,7 @@ class MainWindow(QMainWindow):
                 field[x][y].move(x, y)  # updates coordinates
                 field[x0][y0] = 0
 
-                if type(field[x][y]) == Pawn:
+                if type(field[x][y]) is Pawn:
                     field[x][y].first_move = False
 
                 if self.current_turn == 0:
@@ -103,16 +104,16 @@ def pawn_moves(x, y):
     if x == 0 or x == 7:
         color = field[x][y].color
         if color == 0:
-            field[x][y] = Queen(x, y, color , queen_pixmap)
+            field[x][y] = Queen(x, y, color, queen_pixmap)
         else:
             field[x][y] = Queen(x, y, color, white_queen_pixmap)
         return []
     if figure.color == 0:  # if black - moving down
         c = [-1, -2]  # coefficients to move up or down
-    if not(field[x - c[0]][y]):  # if next upper cell isn't blocked
+    if not (field[x - c[0]][y]):  # if next upper cell isn't blocked
         res.append([x - c[0], y])
         if figure.first_move:
-            if not(field[x - c[1]][y]):  # if cell through one isn't blocked
+            if not (field[x - c[1]][y]):  # if cell through one isn't blocked
                 res.append([x - c[1], y])
     if y != 0:  # not on left corner
         t = field[x - c[0]][y - 1]
@@ -187,7 +188,7 @@ def bishop_moves(x, y):
         right_bottom = True
     if not left_upper:
         for i in range(1, 7 + 1):
-            if not(0 <= x - i <= 7 and 0 <= y - i <= 7):
+            if not (0 <= x - i <= 7 and 0 <= y - i <= 7):
                 break
             t = field[x - i][y - i]
             res.append([x - i, y - i])

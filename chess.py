@@ -40,3 +40,8 @@ class Pawn(Figure):
 class Rook(Figure):
     def __repr__(self):  # maybe add рокировку
         return "R"
+
+
+class Bishop(Figure):
+    def __repr__(self):
+        return "B"

@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QBrush
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from generated_ui import Ui_Dialog
-from chess import Pawn, Rook
+from chess import Pawn, Rook, Bishop
 
 
 class MainWindow(QMainWindow):
@@ -52,6 +52,8 @@ class MainWindow(QMainWindow):
                     cells = pawn_moves(row, col)
                 if type(field[row][col]) == Rook:
                     cells = rook_moves(row, col)
+                if type(field[row][col]) == Bishop:
+                    cells = bishop_moves(row, col)
                 # print("Возможные ходы:", cells)
                 show_possible_items(cells, self.ui.field, field[row][col].color)
             else:
@@ -124,7 +126,6 @@ def rook_moves(x, y):
     :param y: figure y coordinate
     :return: list
     """
-    figure = field[x][y]
     res = []
     if x != 7:  # if not bottom line
         for i in range(x + 1, 7 + 1):
@@ -149,6 +150,63 @@ def rook_moves(x, y):
             t = field[x][j]
             res.append([x, j])
             if t:  # figure found
+                break
+    return res
+
+
+def bishop_moves(x, y):
+    """
+    Function returns list of all possible bishop moves [[x1, y1], [x2, y2], ...]
+
+    :param x: figure x coordinate
+    :param y: figure y coordinate
+    :return: list
+    """
+    res = []
+    left_upper, left_bottom, right_upper, right_bottom = False, False, False, False
+    if x == 0:
+        left_upper = True
+        right_upper = True
+    if x == 7:
+        left_bottom = True
+        right_bottom = True
+    if y == 0:
+        left_upper = True
+        left_bottom = True
+    if y == 7:
+        right_upper = True
+        right_bottom = True
+    if not left_upper:
+        for i in range(1, 7 + 1):
+            if not(0 <= x - i <= 7 and 0 <= y - i <= 7):
+                break
+            t = field[x - i][y - i]
+            res.append([x - i, y - i])
+            if t:
+                break
+    if not left_bottom:
+        for i in range(1, 7 + 1):
+            if not (0 <= x + i <= 7 and 0 <= y - i <= 7):
+                break
+            t = field[x + i][y - i]
+            res.append([x + i, y - i])
+            if t:
+                break
+    if not right_upper:
+        for i in range(1, 7 + 1):
+            if not (0 <= x - i <= 7 and 0 <= y + i <= 7):
+                break
+            t = field[x - i][y + i]
+            res.append([x - i, y + i])
+            if t:
+                break
+    if not right_bottom:
+        for i in range(1, 7 + 1):
+            if not (0 <= x + i <= 7 and 0 <= y + i <= 7):
+                break
+            t = field[x + i][y + i]
+            res.append([x + i, y + i])
+            if t:
                 break
     return res
 
@@ -238,6 +296,10 @@ if __name__ == '__main__':
     rook_pixmap = rook_pixmap.scaled(figure_size)
     white_rook_pixmap = QPixmap(str(Path("src/white_rook.png")))
     white_rook_pixmap = white_rook_pixmap.scaled(figure_size)
+    bishop_pixmap = QPixmap(str(Path("src/bishop.png")))
+    bishop_pixmap = bishop_pixmap.scaled(figure_size)
+    white_bishop_pixmap = QPixmap(str(Path("src/white_bishop.png")))
+    white_bishop_pixmap = white_bishop_pixmap.scaled(figure_size)
 
     field = [[0 for j in range(8)] for i in range(8)]
     init_field_matrix(field)
@@ -252,6 +314,8 @@ if __name__ == '__main__':
     # create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
     # field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
     # create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
+    field[4][6] = Bishop(6, 4, color=1, image=white_bishop_pixmap)
+    create_figure(4, 6, window.ui.field, white_bishop_pixmap, default_color(4, 6))
 
     # DEBUG only
     # for row in field:

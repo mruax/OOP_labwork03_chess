@@ -9,24 +9,11 @@ class Figure:
         self.x = x
         self.y = y
 
-    def possible_moves(self):
-        pass  # функция-пустышка, функционал реализован в дочерних классах
-
 
 class Pawn(Figure):
     def __init__(self, x, y, color, image):
         super().__init__(x, y, color, image)
         self.first_move = True
-
-    def possible_moves(self):
-        c = [1, 2]  # c - coefficients
-        if self.color == 1:
-            c = [-1, -2]
-
-        if self.first_move:
-            return [[self.x, self.y + c[0]],
-                    [self.x, self.y + c[1]]]
-        return [self.x, self.y + c[0]]
 
     def move(self, x, y):
         super().move(x, y)
@@ -37,11 +24,21 @@ class Pawn(Figure):
         return "P"
 
 
-class Rook(Figure):
-    def __repr__(self):  # maybe add рокировку
+class Rook(Figure):  # maybe add рокировку
+    def __repr__(self):
         return "R"
 
 
 class Bishop(Figure):
     def __repr__(self):
         return "B"
+
+
+class Knight(Figure):
+    def __repr__(self):
+        return "K"
+
+
+class Queen(Figure):
+    def __repr__(self):
+        return "Q"

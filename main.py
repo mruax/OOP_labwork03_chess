@@ -77,9 +77,10 @@ class MainWindow(QMainWindow):
 
         if self.current_turn == 0:
             self.current_turn = 1
+            self.ui.turn_label.setText("Ходят:\n\nБелые")
         else:
             self.current_turn = 0
-
+            self.ui.turn_label.setText("Ходят:\n\nЧерные")
 
 
 def pawn_moves(x, y):
@@ -202,18 +203,26 @@ def start_positions(table):
     # White figures:
     for i in range(8):
         create_figure(6, i, table, white_pawn_pixmap, default_color(6, i))
+    create_figure(7, 0, table, white_rook_pixmap, default_color(7, 0))
+    create_figure(7, 7, table, white_rook_pixmap, default_color(7, 7))
     # Black figures:
     for i in range(8):
         create_figure(1, i, table, pawn_pixmap, default_color(1, i))
+    create_figure(0, 0, table, rook_pixmap, default_color(0, 0))
+    create_figure(0, 7, table, rook_pixmap, default_color(0, 7))
 
 
 def init_field_matrix(field):
     # White figures:
     for x in range(8):
         field[6][x] = Pawn(x, 6, color=1, image=white_pawn_pixmap)
+    field[7][0] = Rook(7, 0, color=1, image=white_rook_pixmap)
+    field[7][7] = Rook(7, 7, color=1, image=white_rook_pixmap)
     # Black figures:
     for x in range(8):
         field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
+    field[0][0] = Rook(0, 0, color=0, image=rook_pixmap)
+    field[0][7] = Rook(0, 7, color=0, image=rook_pixmap)
 
 
 if __name__ == '__main__':
@@ -235,15 +244,14 @@ if __name__ == '__main__':
     start_positions(window.ui.field)
 
     # test figures:
-    field[5][3] = Pawn(3, 5, color=1, image=white_pawn_pixmap)
-    create_figure(5, 3, window.ui.field, white_pawn_pixmap, default_color(3, 5))
-    field[4][2] = Pawn(2, 4, color=0, image=pawn_pixmap)
-    create_figure(4, 2, window.ui.field, pawn_pixmap, default_color(2, 4))
-    field[4][4] = Pawn(4, 4, color=0, image=pawn_pixmap)
-    create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
-
-    field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
-    create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
+    # field[5][3] = Pawn(3, 5, color=1, image=white_pawn_pixmap)
+    # create_figure(5, 3, window.ui.field, white_pawn_pixmap, default_color(3, 5))
+    # field[4][2] = Pawn(2, 4, color=0, image=pawn_pixmap)
+    # create_figure(4, 2, window.ui.field, pawn_pixmap, default_color(2, 4))
+    # field[4][4] = Pawn(4, 4, color=0, image=pawn_pixmap)
+    # create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
+    # field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
+    # create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
 
     # DEBUG only
     # for row in field:

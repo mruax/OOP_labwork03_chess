@@ -263,11 +263,15 @@ def start_positions(table):
         create_figure(6, i, table, white_pawn_pixmap, default_color(6, i))
     create_figure(7, 0, table, white_rook_pixmap, default_color(7, 0))
     create_figure(7, 7, table, white_rook_pixmap, default_color(7, 7))
+    create_figure(7, 2, table, white_bishop_pixmap, default_color(7, 2))
+    create_figure(7, 5, table, white_bishop_pixmap, default_color(7, 5))
     # Black figures:
     for i in range(8):
         create_figure(1, i, table, pawn_pixmap, default_color(1, i))
     create_figure(0, 0, table, rook_pixmap, default_color(0, 0))
     create_figure(0, 7, table, rook_pixmap, default_color(0, 7))
+    create_figure(0, 2, table, bishop_pixmap, default_color(0, 2))
+    create_figure(0, 5, table, bishop_pixmap, default_color(0, 5))
 
 
 def init_field_matrix(field):
@@ -276,11 +280,15 @@ def init_field_matrix(field):
         field[6][x] = Pawn(x, 6, color=1, image=white_pawn_pixmap)
     field[7][0] = Rook(7, 0, color=1, image=white_rook_pixmap)
     field[7][7] = Rook(7, 7, color=1, image=white_rook_pixmap)
+    field[7][2] = Bishop(7, 2, color=1, image=white_bishop_pixmap)
+    field[7][5] = Bishop(7, 5, color=1, image=white_bishop_pixmap)
     # Black figures:
     for x in range(8):
         field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
     field[0][0] = Rook(0, 0, color=0, image=rook_pixmap)
     field[0][7] = Rook(0, 7, color=0, image=rook_pixmap)
+    field[0][2] = Bishop(0, 2, color=0, image=bishop_pixmap)
+    field[0][5] = Bishop(0, 5, color=0, image=bishop_pixmap)
 
 
 if __name__ == '__main__':
@@ -314,8 +322,8 @@ if __name__ == '__main__':
     # create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
     # field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
     # create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
-    field[4][6] = Bishop(6, 4, color=1, image=white_bishop_pixmap)
-    create_figure(4, 6, window.ui.field, white_bishop_pixmap, default_color(4, 6))
+    # field[4][6] = Bishop(6, 4, color=1, image=white_bishop_pixmap)
+    # create_figure(4, 6, window.ui.field, white_bishop_pixmap, default_color(4, 6))
 
     # DEBUG only
     # for row in field:

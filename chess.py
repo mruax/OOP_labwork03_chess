@@ -3,9 +3,7 @@ class Figure:
         self.x = x  # [0..7]
         self.y = y  # [0..7]
         self.color = color  # 0 - Black, 1 - White
-        self.image = image
-
-        self.background = ""
+        self.image = image  # QPixmap
 
     def move(self, x, y):
         self.x = x
@@ -37,3 +35,8 @@ class Pawn(Figure):
 
     def __repr__(self):
         return "P"
+
+
+class Rook(Figure):
+    def __repr__(self):  # maybe add рокировку
+        return "R"

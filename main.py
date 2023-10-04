@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QBrush
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from generated_ui import Ui_Dialog
-from chess import Pawn
+from chess import Pawn, Rook
 
 
 class MainWindow(QMainWindow):
@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
 
         self.current_tile = []  # [x, y]
         self.current_figure = []  # [x, y]
+        self.current_turn = 1  # 1 - White, 0 - Black
 
     def onItemSelected(self):
         selected_item = self.sender().selectedItems()
@@ -38,7 +39,7 @@ class MainWindow(QMainWindow):
             row = item.row()
             col = item.column()
             self.current_tile = [row, col]
-            print(f"Выбрана ячейка в строке {row + 1}, столбце {col + 1}")
+            # print(f"Выбрана ячейка в строке {row + 1}, столбце {col + 1}")
             if self.ui.field.item(row, col).background().color() == QColor(240, 240, 0):  # free cell move
                 # print("Тут возможно будет ход!")
                 pass
@@ -47,13 +48,16 @@ class MainWindow(QMainWindow):
                 # print("Возможно тут будет труп!")
             elif field[row][col]:  # show figure possible moves
                 self.current_figure = [row, col]
-                # cells = field[row][col].possible_moves()
-                cells = pawn_moves(row, col)
+                if type(field[row][col]) == Pawn:
+                    cells = pawn_moves(row, col)
+                if type(field[row][col]) == Rook:
+                    cells = rook_moves(row, col)
                 # print("Возможные ходы:", cells)
                 show_possible_items(cells, self.ui.field, field[row][col].color)
             else:
                 self.current_figure = []
                 update_cells(field, self.ui.field)
+            # print("tile:", self.current_tile, "figure:", self.current_figure)
 
     def next_turn(self):
         if len(self.current_figure) == 2:  # if selected figure
@@ -61,6 +65,7 @@ class MainWindow(QMainWindow):
                 x, y = self.current_tile[0], self.current_tile[1]
                 x0, y0 = self.current_figure[0], self.current_figure[1]
                 field[x][y] = field[x0][y0]
+                field[x][y].move(x, y)  # updates coordinates
                 field[x0][y0] = 0
 
                 if type(field[x][y]) == Pawn:
@@ -70,13 +75,26 @@ class MainWindow(QMainWindow):
         self.ui.field.clearSelection()
         update_cells(field, self.ui.field)
 
+        if self.current_turn == 0:
+            self.current_turn = 1
+        else:
+            self.current_turn = 0
+
+
 
 def pawn_moves(x, y):
+    """
+    Function returns list of all possible pawn moves [[x1, y1], [x2, y2], ...]
+
+    :param x: figure x coordinate
+    :param y: figure y coordinate
+    :return: list
+    """
     figure = field[x][y]
     c = [1, 2]
     res = []
     if x == 0 or x == 7:  # TODO: если пешка превратится на краю в крутыша
-        return
+        return []
     if figure.color == 0:  # if black - moving down
         c = [-1, -2]  # coefficients to move up or down
     if not(field[x - c[0]][y]):  # if next upper cell isn't blocked
@@ -94,6 +112,43 @@ def pawn_moves(x, y):
         if t:  # if right diagonal cell has figure
             if t.color != figure.color:
                 res.append([x - c[0], y + 1])  # possible attack cell
+    return res
+
+
+def rook_moves(x, y):
+    """
+    Function returns list of all possible rook moves [[x1, y1], [x2, y2], ...]
+
+    :param x: figure x coordinate
+    :param y: figure y coordinate
+    :return: list
+    """
+    figure = field[x][y]
+    res = []
+    if x != 7:  # if not bottom line
+        for i in range(x + 1, 7 + 1):
+            t = field[i][y]
+            res.append([i, y])
+            if t:  # if figure found, adds it (because it can be opponent figure) and stopped
+                break
+    if x != 0:  # if not upper line
+        for i in range(x - 1, 0 - 1, -1):
+            t = field[i][y]
+            res.append([i, y])
+            if t:  # figure found
+                break
+    if y != 7:  # if not right line
+        for j in range(y + 1, 7 + 1):
+            t = field[x][j]
+            res.append([x, j])
+            if t:  # figure found
+                break
+    if y != 0:  # if not left line
+        for j in range(y - 1, 0 - 1, -1):
+            t = field[x][j]
+            res.append([x, j])
+            if t:  # figure found
+                break
     return res
 
 
@@ -144,19 +199,21 @@ def default_color(x, y):
 
 
 def start_positions(table):
+    # White figures:
     for i in range(8):
         create_figure(6, i, table, white_pawn_pixmap, default_color(6, i))
+    # Black figures:
     for i in range(8):
         create_figure(1, i, table, pawn_pixmap, default_color(1, i))
 
 
 def init_field_matrix(field):
-    # Black figures:
-    for x in range(8):
-        field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
     # White figures:
     for x in range(8):
         field[6][x] = Pawn(x, 6, color=1, image=white_pawn_pixmap)
+    # Black figures:
+    for x in range(8):
+        field[1][x] = Pawn(x, 1, color=0, image=pawn_pixmap)
 
 
 if __name__ == '__main__':
@@ -168,11 +225,13 @@ if __name__ == '__main__':
     pawn_pixmap = pawn_pixmap.scaled(figure_size)  # , Qt.AspectRatioMode.KeepAspectRatio
     white_pawn_pixmap = QPixmap(str(Path("src/white_pawn.png")))
     white_pawn_pixmap = white_pawn_pixmap.scaled(figure_size)
+    rook_pixmap = QPixmap(str(Path("src/rook.png")))
+    rook_pixmap = rook_pixmap.scaled(figure_size)
+    white_rook_pixmap = QPixmap(str(Path("src/white_rook.png")))
+    white_rook_pixmap = white_rook_pixmap.scaled(figure_size)
 
     field = [[0 for j in range(8)] for i in range(8)]
     init_field_matrix(field)
-    for row in field:
-        print(row)
     start_positions(window.ui.field)
 
     # test figures:
@@ -183,8 +242,12 @@ if __name__ == '__main__':
     field[4][4] = Pawn(4, 4, color=0, image=pawn_pixmap)
     create_figure(4, 4, window.ui.field, pawn_pixmap, default_color(4, 4))
 
-    current_turn = 1  # 1 - White, 0 - Black
+    field[4][6] = Rook(6, 4, color=1, image=white_rook_pixmap)
+    create_figure(4, 6, window.ui.field, white_rook_pixmap, default_color(4, 6))
 
-    # table.clearSelection()
+    # DEBUG only
+    # for row in field:
+    #     print(row)
+
     window.show()
     sys.exit(app.exec())
